@@ -41,14 +41,17 @@ export default {
 
 			// Validate route (return 400 if invalid)
 			if (!route) {
-				return new Response('Invalid endpoint. Required format: /claude/{host}/{path}', {
-					status: 400,
-					headers: { 'Content-Type': 'text/plain' },
-				});
+				return new Response(
+					'Invalid endpoint. Required format: /claude/{host}/{path} or /openai/{host}/{path}',
+					{
+						status: 400,
+						headers: { 'Content-Type': 'text/plain' },
+					}
+				);
 			}
 
-			// Validate endpoint must contain v1/messages
-			if (!route.targetPath.includes('v1/messages')) {
+			// Validate endpoint for Claude route must contain v1/messages
+			if (route.routeType === 'claude' && !route.targetPath.includes('v1/messages')) {
 				return new Response(
 					JSON.stringify({
 						type: 'error',
