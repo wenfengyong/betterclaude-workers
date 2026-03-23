@@ -26,7 +26,13 @@ BetterClaude automatically detects and removes these orphaned blocks, allowing t
 2. **API Call**: Forwards the cleaned request to the target Claude API
 3. **Reactive Fallback**: If a 400 error still occurs, parses the error to identify remaining orphans and retries once
 
+### Architecture
+
+![BetterClaude Architecture](static/architecture.png)
+
 ## Usage
+
+### Claude API
 
 Prefix your Claude API endpoint with the gateway URL:
 
@@ -34,18 +40,46 @@ Prefix your Claude API endpoint with the gateway URL:
 https://<YOUR_DOMAIN>/claude/<TARGET_HOST>/v1/messages
 ```
 
-### Examples
+**Examples:**
 
-**Direct Anthropic API:**
+Direct Anthropic API:
 ```
 https://api.anthropic.com/v1/messages
 → https://<YOUR_DOMAIN>/claude/api.anthropic.com/v1/messages
 ```
 
-**Third-party Claude API providers:**
+Third-party Claude API providers:
 ```
 https://some-provider.com/v1/messages
 → https://<YOUR_DOMAIN>/claude/some-provider.com/v1/messages
+```
+
+### OpenAI-Compatible API
+
+Proxy OpenAI or OpenAI-compatible API endpoints:
+
+```
+https://<YOUR_DOMAIN>/openai/<TARGET_HOST>/<PATH>
+```
+
+**Examples:**
+
+OpenAI API:
+```
+https://api.openai.com/v1/chat/completions
+→ https://<YOUR_DOMAIN>/openai/api.openai.com/v1/chat/completions
+```
+
+Local AI Server (Ollama, LM Studio, etc.):
+```
+http://localhost:11434/v1/chat/completions
+→ https://<YOUR_DOMAIN>/openai/localhost:11434/v1/chat/completions
+```
+
+Other OpenAI-compatible providers:
+```
+https://some-openai-compatible.com/v1/completions
+→ https://<YOUR_DOMAIN>/openai/some-openai-compatible.com/v1/completions
 ```
 
 ## Deployment
@@ -121,7 +155,8 @@ better_claude/
 |----------|-------------|
 | `/` | Info endpoint |
 | `/health` | Health check |
-| `/claude/{host}/{path}` | Proxy to Claude API |
+| `/claude/{host}/{path}` | Proxy to Claude API (requires `v1/messages`) |
+| `/openai/{host}/{path}` | Proxy to OpenAI-compatible API endpoints |
 
 ## How the Cleanup Works
 
