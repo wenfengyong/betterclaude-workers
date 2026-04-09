@@ -155,7 +155,7 @@ better_claude/
 |----------|-------------|
 | `/` | Info endpoint |
 | `/health` | Health check |
-| `/claude/{host}/{path}` | Proxy to Claude API (requires `v1/messages`) |
+| `/claude/{host}/{path}` | Proxy to Claude API (requires `v1/messages` or `v1/embeddings`) |
 | `/openai/{host}/{path}` | Proxy to OpenAI-compatible API endpoints |
 
 ## How the Cleanup Works
