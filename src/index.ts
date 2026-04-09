@@ -50,22 +50,22 @@ export default {
 				);
 			}
 
-			// Validate endpoint for Claude route must contain v1/messages
-			if (route.routeType === 'claude' && !route.targetPath.includes('v1/messages')) {
-				return new Response(
-					JSON.stringify({
-						type: 'error',
-						error: {
-							type: 'forbidden',
-							message: 'Invalid endpoint. Path must contain v1/messages',
-						},
-					}),
-					{
-						status: 403,
-						headers: { 'Content-Type': 'application/json' },
-					}
-				);
-			}
+			// Validate endpoint for Claude route must contain v1/messages or v1/embeddings
+		if (route.routeType === 'claude' && !route.targetPath.includes('v1/messages') && !route.targetPath.includes('v1/embeddings')) {
+			return new Response(
+				JSON.stringify({
+					type: 'error',
+					error: {
+						type: 'forbidden',
+						message: 'Invalid endpoint. Path must contain v1/messages or v1/embeddings',
+					},
+				}),
+				{
+					status: 403,
+					headers: { 'Content-Type': 'application/json' },
+				}
+			);
+		}
 
 			// Proxy request to target API
 			const proxyResult = await proxyRequest(request, route);

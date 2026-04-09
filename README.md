@@ -43,12 +43,14 @@ https://<YOUR_DOMAIN>/claude/<TARGET_HOST>/v1/messages
 **Examples:**
 
 Direct Anthropic API:
+
 ```
 https://api.anthropic.com/v1/messages
 → https://<YOUR_DOMAIN>/claude/api.anthropic.com/v1/messages
 ```
 
 Third-party Claude API providers:
+
 ```
 https://some-provider.com/v1/messages
 → https://<YOUR_DOMAIN>/claude/some-provider.com/v1/messages
@@ -65,18 +67,21 @@ https://<YOUR_DOMAIN>/openai/<TARGET_HOST>/<PATH>
 **Examples:**
 
 OpenAI API:
+
 ```
 https://api.openai.com/v1/chat/completions
 → https://<YOUR_DOMAIN>/openai/api.openai.com/v1/chat/completions
 ```
 
 Local AI Server (Ollama, LM Studio, etc.):
+
 ```
 http://localhost:11434/v1/chat/completions
 → https://<YOUR_DOMAIN>/openai/localhost:11434/v1/chat/completions
 ```
 
 Other OpenAI-compatible providers:
+
 ```
 https://some-openai-compatible.com/v1/completions
 → https://<YOUR_DOMAIN>/openai/some-openai-compatible.com/v1/completions
@@ -93,6 +98,7 @@ https://some-openai-compatible.com/v1/completions
 ### Setup
 
 1. Clone and install dependencies:
+
    ```bash
    cd better_claude
    npm install
@@ -103,6 +109,7 @@ https://some-openai-compatible.com/v1/completions
    - Add your domain routes
 
 3. Deploy:
+
    ```bash
    npm run deploy
    ```
@@ -155,7 +162,7 @@ better_claude/
 |----------|-------------|
 | `/` | Info endpoint |
 | `/health` | Health check |
-| `/claude/{host}/{path}` | Proxy to Claude API (requires `v1/messages`) |
+| `/claude/{host}/{path}` | Proxy to Claude API (requires `v1/messages` or `v1/embeddings`) |
 | `/openai/{host}/{path}` | Proxy to OpenAI-compatible API endpoints |
 
 ## How the Cleanup Works
