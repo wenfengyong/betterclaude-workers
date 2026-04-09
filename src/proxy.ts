@@ -171,7 +171,8 @@ function buildUpstreamHeaders(request: Request, targetHost: string): Headers {
  */
 export async function proxyRequest(request: Request, route: RouteInfo): Promise<RetryResult> {
 	// Construct target URL
-	const targetUrl = `https://${route.targetHost}/${route.targetPath}${route.searchParams}`;
+	const targetPath = route.targetPath.startsWith('/') ? route.targetPath.slice(1) : route.targetPath;
+	const targetUrl = `https://${route.targetHost}/${targetPath}${route.searchParams}`;
 
 	// Build headers with full client information preservation
 	const headers = buildUpstreamHeaders(request, route.targetHost);
